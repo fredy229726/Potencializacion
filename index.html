@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Potencialización</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.4.0/math.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f5;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 600px;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 80%;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #resultado, #explicacion {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculadora de Potencialización</h1>
+    <div class="container">
+        <h2>Ingrese la expresión de potencialización:</h2>
+        <input type="text" id="expresion" placeholder="Ejemplo: -5^6" required>
+        <button onclick="calcular()">Calcular</button>
+        <div id="resultado"></div>
+        <div id="explicacion"></div> <!-- Sección para mostrar la explicación -->
+    </div>
+
+    <script>
+        function calcular() {
+            const expresion = document.getElementById("expresion").value;
+            let resultadoDecimal;
+
+            try {
+                // Evaluar la expresión
+                resultadoDecimal = math.evaluate(expresion);
+
+                // Explicación personalizada basada en la expresión
+                let explicacion = `
+                    <h3>Explicación:</h3>
+                    <p>Para calcular la expresión <strong>${expresion}</strong>, realizamos los siguientes pasos:</p>
+                    <ul>
+                        <li>Primero, identificamos los términos de la expresión.</li>
+                        <li>Analizamos la base y el exponente. La base puede ser positiva o negativa, y el exponente determina cómo se comporta el resultado:</li>
+                        <li>
+                            <ul>
+                                <li>Si la base es positiva, el resultado será positivo sin importar si el exponente es par o impar.</li>
+                                <li>Si la base es negativa:</li>
+                                <ul>
+                                    <li>Si el exponente es par, el resultado será positivo.</li>
+                                    <li>Si el exponente es impar, el resultado será negativo.</li>
+                                </ul>
+                            </ul>
+                        </li>
+                        <li>Finalmente, calculamos el resultado: <strong>${resultadoDecimal}</strong>.</li>
+                    </ul>
+                `;
+
+                document.getElementById("resultado").innerHTML = `
+                    <h3>Resultado:</h3>
+                    <p>La expresión <strong>${expresion}</strong> da como resultado: <strong>${resultadoDecimal}</strong></p>
+                `;
+                document.getElementById("explicacion").innerHTML = explicacion;
+
+            } catch (error) {
+                alert("La expresión ingresada no es válida. Por favor, verifique e intente de nuevo.");
+            }
+        }
+    </script>
+</body>
+</html>
